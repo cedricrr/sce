@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div id="layout-menubar" class="Unselectable fontRegular" >
+		<div class="layout-menubarinner-box" id="buttonArea" >
+			<a href="#" id="layout-menubar-resize" class="BordRad3" title="Menu"><i
+				class="icon-th-list-2"></i></a> <a href="#" id="layout-menubar-resize2"
+				class="BordRad3" title="Abrir Menu"><i class="icon-menu"></i></a>
+		</div>
+
+		<h:form id="menuform" >
+			<ps:menu id="sm_leftmenu" >
+				<p:menuitem id="sm_usuario" value="Usuario" icon="icon-home-outline" outcome="usuario"
+					containerStyleClass="layout-menubar-active" />
+				<p:menuitem id="sm_area" value="Área" icon="icon-home-outline" outcome="area"
+					containerStyleClass="layout-menubar-active" />
+				<p:menuitem id="sm_cidade" value="Cidade" icon="icon-home-outline" outcome="cidade"
+					containerStyleClass="layout-menubar-active" />
+				<p:menuitem id="sm_uf" value="UF" icon="icon-home-outline" outcome="uf"
+					containerStyleClass="layout-menubar-active" />
+				<p:menuitem id="sm_perfil" value="Perfil" icon="icon-home-outline" outcome="perfil"
+					containerStyleClass="layout-menubar-active" />
+				<p:menuitem id="sm_evento" value="Evento" icon="icon-home-outline" outcome="evento"
+					containerStyleClass="layout-menubar-active" />
+				<p:menuitem id="sm_arquivo" value="Arquivo" icon="icon-home-outline" outcome="arquivo"
+					containerStyleClass="layout-menubar-active" />
+			</ps:menu>
+		</h:form>
+		<p:spacer width="100%"/>
+	</div>
+
+</ui:composition>

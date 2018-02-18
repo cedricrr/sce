@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head>
+	<title>Sistema Gerenciador de Eventos | SCE</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+	<h:outputScript name="js/login.js" library="sentinel-layout" />
+	<h:outputStylesheet name="css/font-icon-layout.css"
+		library="sentinel-layout" />
+	<h:outputStylesheet name="css/sentinel-layout.css"
+		library="sentinel-layout" />
+	<h:outputStylesheet name="css/core-layout.css"
+		library="sentinel-layout" />
+</h:head>
+
+<h:body class="fontRegular login-back white-back">
+
+	<div class="Container">
+
+		<div class="Container100">
+			<h:form>
+				<p:dataScroller value="#{loginMB.eventos}" var="obj" chunkSize="10"
+					mode="inline" scrollHeight="500">
+					<f:facet name="header">
+			            Eventos Disponíveis
+			        </f:facet>
+
+					<h:panelGrid columns="2" style="width:100%">
+						<!--             <p:graphicImage name="resouces/docs/#{car.brand}-big.gif" />  -->
+
+						<p:outputPanel>
+							<h:panelGrid columns="2" cellpadding="5">
+								<p:outputLabel value="Id:" />
+								<p:outputLabel value="#{obj.id}" style="font-weight: bold" />
+
+								<p:outputLabel value="Descrição:" />
+								<p:outputLabel value="#{obj.descricao}"
+									style="font-weight: bold" />
+
+								<p:outputLabel value="Início da inscrição" />
+								<p:outputLabel value="#{obj.inicioInscricao}"
+									style="font-weight: bold">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+
+								<p:outputLabel value="Término da inscrição" />
+								<p:outputLabel value="#{obj.terminoInscricao}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+
+							</h:panelGrid>
+						</p:outputPanel>
+					</h:panelGrid>
+				</p:dataScroller>
+			</h:form>
+		</div>
+
+	</div>
+	<!-- LOGIN BOX COVER END -->
+</h:body>
+
+</html>
+
+
+

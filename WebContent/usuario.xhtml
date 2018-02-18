@@ -1,0 +1,216 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<style type="text/css">
+.ui-panel {
+	margin-top: 20px
+}
+
+.inlineCalendarDemo>.hasDatepicker {
+	padding-left: 50px;
+}
+</style>
+		<h:form id="form">
+		<p:growl autoUpdate="true" globalOnly="true"/>
+			<div class="ContainerIndent ui-fluid">
+				<p:panel>
+					<div class="Container">
+						<div class="Container80 Responsive80">
+							<div class="ContainerIndent">
+								<h:outputText value="Usuario"
+									styleClass="FontBold Fs18 hardblue"></h:outputText>
+							</div>
+							<div class="Container100">
+								<p:panelGrid columns="2" id="in"
+									columnClasses="ui-grid-col-2,ui-grid-col-9" layout="grid"
+									styleClass="ui-panelgrid-blank"
+									style="border:0px none; background-color:transparent;">
+									<p:outputLabel value="CPF: " for="cpf" />
+									<p:inputMask id="cpf" required="true" mask="999.999.999-99" 
+										value="#{usuarioMB.usuario.pessoa.cpf}" />
+									
+									<p:outputLabel value="Email: " for="email" />
+									<p:inputText id="email" required="true"
+										value="#{usuarioMB.usuario.email}" />
+									
+									<p:outputLabel value="Senha: " for="senha" />
+									<p:password id="senha" required="true"
+										value="#{usuarioMB.usuario.senha}" />
+									
+									<p:outputLabel value="Nome: " for="nome" />
+									<p:inputText id="nome" required="true"
+										value="#{usuarioMB.usuario.pessoa.nome}" />
+									
+									<p:outputLabel value="Data nasc" for="dataNasc"/>
+									<p:calendar id="dataNasc" placeholder="dd/mm/aaaa"
+										value="#{usuarioMB.usuario.pessoa.dataNascimento}" navigator="true"
+										locale="pt_BR" pattern="dd/MM/yyyy" mask="true">
+									</p:calendar>
+									
+									<p:outputLabel value="*Matricula: " for="matricula" />
+									<p:inputText id="matricula" disabled="true" />
+									
+									<p:outputLabel value="Área padrão: " for="area" />
+									<p:selectOneMenu value="#{usuarioMB.idArea}" rendered="true" id="area">
+										<f:selectItem itemLabel="Selecione..." itemValue="" />
+										<f:selectItems value="#{usuarioMB.areas}" var="item"
+											itemLabel="#{item.descricao}" itemValue="#{item.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="*Tipo de usuário: " for="tipUser" />
+									<p:inputText id="tipUser" disabled="true" />
+
+									<p:outputLabel value="Perfil: " for="perfil" />
+									<p:selectOneMenu value="#{usuarioMB.idPerfil}" rendered="true" id="perfil">
+										<f:selectItem itemLabel="Selecione..." itemValue="" />
+										<f:selectItems value="#{usuarioMB.perfis}" var="item"
+											itemLabel="#{item.descricao}" itemValue="#{item.id}" />
+									</p:selectOneMenu>
+
+								</p:panelGrid>
+
+								<p:panelGrid columns="3" styleClass="ui-panelgrid-blank"
+									columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-3"
+									layout="grid" id="bt"
+									style="border:0px none; background-color:transparent;">
+									<div class="EmptyBox20"></div>
+									<p:commandButton value="Gravar"
+										actionListener="#{usuarioMB.gravar}" process="in, bt"
+										update=":form" />
+									<div class="EmptyBox20"></div>
+								</p:panelGrid>
+							</div>
+						</div>
+					</div>
+				</p:panel>
+			</div>
+
+			<div class="ContainerIndent ui-fluid">
+				<div class="Container">
+					<div class="Container100 Responsive100">
+						<p:dataTable var="usuario" value="#{usuarioMB.usuarios}"
+							id="lista" emptyMessage="Nenhum usuario encontrado!">
+							<f:facet name="header">
+								Usuarios				        	
+							</f:facet>
+							<p:column headerText="Email" sortable="true"
+								sortBy="#{usuario.email}">
+								<p:outputLabel value="#{usuario.email}" />
+							</p:column>
+							<p:column headerText="Nome" sortable="true"
+								sortBy="#{usuario.nome}">
+								<p:outputLabel value="#{usuario.nome}" />
+							</p:column>
+							<p:column headerText="Area" >
+								<p:outputLabel value="#{usuarioMB.area}" />
+							</p:column>
+							<p:column headerText="Matricula" sortable="true"
+								sortBy="#{usuario.id}">
+								<p:outputLabel value="#{usuario.id}" />
+							</p:column>
+
+							<p:column width="10%" headerText="Opções">
+								<div class="Container100 Responsive100">
+									<div class="Container40">
+										<p:commandButton icon="fa icon-pencil Fs14 white"
+											oncomplete="PF('dialogoEdicao').show()" update=":edita:info"
+											process="lista">
+											<f:setPropertyActionListener value="#{usuario}"
+												target="#{usuarioMB.usuario}" />
+										</p:commandButton>
+									</div>
+									<div class="Container20">
+										<div class="EmptyBox5"></div>
+									</div>
+									<div class="Container40">
+										<p:commandButton icon="fa icon-bitbucket Fs14 white"
+											action="#{usuarioMB.deletar(usuario)}" process="lista"
+											update="@form">
+											<p:confirm header="Confirmação"
+												message="Deseja realmente apagar este item?"
+												icon="ui-icon-alert" />
+										</p:commandButton>
+									</div>
+								</div>
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<h:form id="confirm">
+			<p:growl id="message" showDetail="true" />
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes"
+					icon="ui-icon-check fa fa-check Fs14 white" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no"
+					icon="ui-icon-close fa fa-close Fs14 white" />
+			</p:confirmDialog>
+		</h:form>
+		<h:form id="edita">
+			<p:dialog header="Editar Tipo" widgetVar="dialogoEdicao" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="info" style="text-align:center;">
+					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank"
+						columnClasses="ui-grid-col-4,ui-grid-col-5" layout="grid"
+						style="border:0px none; background-color:transparent;">
+
+						<p:outputLabel value="Id:" />
+						<p:inputText value="#{usuarioMB.usuario.id}" disabled="true" />
+
+						<p:outputLabel value="CPF: " for="cpf" />
+									<p:inputText id="cpf" required="true"
+										value="#{usuarioMB.usuario.pessoa.cpf}" />
+									
+									<p:outputLabel value="Email: " for="email" />
+									<p:inputText id="email" required="true"
+										value="#{usuarioMB.usuario.email}" />
+									
+									<p:outputLabel value="Senha: " for="senha" />
+									<p:password id="senha" required="true"
+										value="#{usuarioMB.usuario.senha}" />
+									
+									<p:outputLabel value="Nome: " for="nome" />
+									<p:inputText id="nome" required="true"
+										value="#{usuarioMB.usuario.pessoa.nome}" />
+									
+									<p:outputLabel value="*Matricula: " for="matricula" />
+									<p:inputText id="matricula" disabled="true" />
+									
+									<p:outputLabel value="Área padrão: " for="area" />
+									<p:selectOneMenu value="#{usuarioMB.idArea}" rendered="true" id="area">
+										<f:selectItem itemLabel="Selecione..." itemValue="" />
+										<f:selectItems value="#{usuarioMB.areas}" var="item"
+											itemLabel="#{item.descricao}" itemValue="#{item.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="*Tipo de usuário: " for="tipUser" />
+									<p:inputText id="tipUser" disabled="true" />
+
+									<p:outputLabel value="Perfil: " for="perfil" />
+									<p:selectOneMenu value="#{usuarioMB.idPerfil}" rendered="true" id="perfil">
+										<f:selectItem itemLabel="Selecione..." itemValue="" />
+										<f:selectItems value="#{usuarioMB.perfis}" var="item"
+											itemLabel="#{item.descricao}" itemValue="#{item.id}" />
+									</p:selectOneMenu>
+
+
+						<p:commandButton value="Salvar"
+							oncomplete="PF('dialogoEdicao').hide()"
+							actionListener="#{comarcaMB.alterar}" process="@form"
+							update=":form:lista" />
+						<p:commandButton value="Cancelar"
+							oncomplete="PF('dialogoEdicao').hide()" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

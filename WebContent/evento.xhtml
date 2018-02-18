@@ -1,0 +1,275 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<style type="text/css">
+.ui-panel {
+	margin-top: 20px
+}
+
+.inlineCalendarDemo>.hasDatepicker {
+	padding-left: 50px;
+}
+</style>
+		<h:form id="form">
+
+			<div class="ContainerIndent ui-fluid">
+				<p:panel>
+					<div class="Container">
+						<div class="Container80 Responsive80">
+							<div class="ContainerIndent">
+								<h:outputText value="Gerenciar Eventos"
+									styleClass="FontBold Fs18 hardblue"></h:outputText>
+							</div>
+							<div class="Container100">
+								<p:panelGrid columns="2" id="in"
+									columnClasses="ui-grid-col-2,ui-grid-col-9" layout="grid"
+									styleClass="ui-panelgrid-blank"
+									style="border:0px none; background-color:transparent;">
+
+									<p:outputLabel value="Descição: " for="descricao" />
+									<p:inputText id="descricao" required="true"
+										value="#{eventoMB.evento.descricao}" />
+
+									<p:outputLabel value="Início Inscrição" for="dataInicial" />
+									<p:calendar id="dataInicial" placeholder="Apartir da data"
+										value="#{eventoMB.evento.inicioInscricao}" navigator="true"
+										locale="pt_BR" pattern="dd/MM/yyyy" mask="true">
+									</p:calendar>
+
+									<p:outputLabel value="Término Inscrição" for="dataFinal" />
+									<p:calendar id="dataFinal" placeholder="Até a data"
+										value="#{eventoMB.evento.terminoInscricao}" navigator="true"
+										locale="pt_BR" pattern="dd/MM/yyyy" mask="true">
+									</p:calendar>
+
+									<p:outputLabel value="Ativo: " for="ativo" />
+									<p:inputSwitch offLabel="Desativado" onLabel="Ativado"
+										id="ativo" required="true" value="#{eventoMB.evento.ativo}" />
+
+									<p:outputLabel value="Emite Certificado: " for="certificado" />
+									<p:inputText id="certificado" required="true" maxlength="1"
+										value="#{eventoMB.evento.emiteCertificado}">
+										<f:validateRegex pattern="^[NS]" />
+									</p:inputText>
+
+									<p:outputLabel value="Verifica choque de horário: "
+										for="choque" />
+									<p:inputSwitch id="choque" offLabel="Não" onLabel="Sim"
+										value="#{eventoMB.verificaChoque}" />
+
+									<p:outputLabel value="*Video: " for="video" />
+									<p:inputText id="video" disabled="true" />
+
+									<p:outputLabel value="Cidade: " for="cidade" />
+									<p:selectOneMenu value="#{eventoMB.idCidade}" id="cidade">
+										<f:selectItem itemLabel="Selecione..." itemValue="" />
+										<f:selectItems value="#{eventoMB.cidades}" var="cidade"
+											itemLabel="#{cidade.descricao}" itemValue="#{cidade.id}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Número de vagas:" for="vagas" />
+									<p:spinner value="#{eventoMB.evento.numeroVaga}" min="1"
+										id="vagas" />
+
+									<p:outputLabel value="Carga horária:" for="carga" />
+									<p:spinner value="#{eventoMB.evento.cargaHoraria}" min="1"
+										id="carga" suffix="hrs" />
+
+								</p:panelGrid>
+
+								<p:panelGrid columns="3" styleClass="ui-panelgrid-blank"
+									columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-3"
+									layout="grid" id="bt"
+									style="border:0px none; background-color:transparent;">
+									<div class="EmptyBox20"></div>
+									<p:commandButton value="Gravar"
+										actionListener="#{eventoMB.gravar}" process="in, bt"
+										update=":form" />
+									<div class="EmptyBox20"></div>
+
+								</p:panelGrid>
+							</div>
+						</div>
+					</div>
+				</p:panel>
+			</div>
+
+			<div class="ContainerIndent ui-fluid">
+				<div class="Container">
+					<div class="Container100 Responsive100">
+						<p:dataTable var="obj" value="#{eventoMB.eventos}" id="lista"
+							emptyMessage="Nenhum resultado encontrado!">
+							<f:facet name="header">
+								Usuarios				        	
+							</f:facet>
+							<p:column headerText="Nome" sortable="true"
+								sortBy="#{obj.descricao}">
+								<p:outputLabel value="#{obj.descricao}" />
+							</p:column>
+							<p:column headerText="Início inscrição" sortable="true"
+								sortBy="#{obj.inicioInscricao}">
+								<p:outputLabel value="#{obj.inicioInscricao}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Término incrição" sortable="true"
+								sortBy="#{obj.terminoInscricao}">>
+								<p:outputLabel value="#{obj.terminoInscricao}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+							</p:column>
+
+							<p:column width="10%" headerText="Opções">
+								<div class="Container100 Responsive100">
+									<div class="Container20">
+										<p:commandButton icon="fa icon-pencil Fs14 white"
+											oncomplete="PF('dialogoEdicao').show()" update=":edita:info"
+											process="lista">
+											<f:setPropertyActionListener value="#{obj}"
+												target="#{eventoMB.evento}" />
+										</p:commandButton>
+									</div>
+									<div class="Container20">
+										<div class="EmptyBox5"></div>
+									</div>
+									<div class="Container20">
+										<p:commandButton icon="fa icon-bitbucket Fs14 white"
+											action="#{eventoMB.deletar(obj)}" process="lista"
+											update="@form">
+											<p:confirm header="Confirmação"
+												message="Deseja realmente apagar este item?"
+												icon="ui-icon-alert" />
+										</p:commandButton>
+									</div>
+									<div class="Container20">
+										<div class="EmptyBox5"></div>
+									</div>
+									<div class="Container20">
+										<p:commandButton icon="fa icon-bitbucket Fs14 white"
+											action="#{eventoMB.deletar(obj)}" process="lista"
+											update="@form">
+											<p:confirm header="Confirmação"
+												message="Deseja realmente apagar este item?"
+												icon="ui-icon-alert" />
+										</p:commandButton>
+									</div>
+								</div>
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<h:form id="confirm">
+			<p:growl id="message" showDetail="true" />
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes"
+					icon="ui-icon-check fa fa-check Fs14 white" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no"
+					icon="ui-icon-close fa fa-close Fs14 white" />
+			</p:confirmDialog>
+		</h:form>
+		<h:form id="edita">
+			<p:dialog header="Editar Tipo" widgetVar="dialogoEdicao" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="info" style="text-align:center;">
+					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank"
+						columnClasses="ui-grid-col-4,ui-grid-col-5" layout="grid"
+						style="border:0px none; background-color:transparent;">
+
+						<p:outputLabel value="Id:" />
+						<p:inputText value="#{eventoMB.evento.id}" disabled="true" />
+
+						<p:outputLabel value="Descição: " for="descricao" />
+						<p:inputText id="descricao" required="true"
+							value="#{eventoMB.evento.descricao}" />
+
+						<p:outputLabel value="Início Inscrição" for="dataInicial" />
+						<p:calendar id="dataInicial" placeholder="Apartir da data"
+							value="#{eventoMB.evento.inicioInscricao}" navigator="true"
+							locale="pt_BR" pattern="dd/MM/yyyy" mask="true">
+						</p:calendar>
+
+						<p:outputLabel value="Término Inscrição" for="dataFinal" />
+						<p:calendar id="dataFinal" placeholder="Até a data"
+							value="#{eventoMB.evento.terminoInscricao}" navigator="true"
+							locale="pt_BR" pattern="dd/MM/yyyy" mask="true">
+						</p:calendar>
+
+						<p:outputLabel value="Ativo: " for="ativo" />
+						<p:inputSwitch offLabel="Desativado" onLabel="Ativado" id="ativo"
+							required="true" value="#{eventoMB.evento.ativo}" />
+
+						<p:outputLabel value="Emite Certificado: " for="certificado" />
+						<p:inputText id="certificado" required="true" maxlength="1"
+							value="#{eventoMB.evento.emiteCertificado}">
+							<f:validateRegex pattern="^[NS]" />
+						</p:inputText>
+
+						<p:outputLabel value="Verifica choque de horário: " for="choque" />
+						<p:inputSwitch id="choque" offLabel="Não" onLabel="Sim"
+							value="#{eventoMB.verificaChoque}" />
+
+						<p:outputLabel value="*Video: " for="video" />
+						<p:inputText id="video" disabled="true" />
+
+
+						<p:commandButton value="Salvar"
+							oncomplete="PF('dialogoEdicao').hide()"
+							actionListener="#{comarcaMB.alterar}" process="@form"
+							update=":form:lista" />
+						<p:commandButton value="Cancelar"
+							oncomplete="PF('dialogoEdicao').hide()" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+		<h:form id="configura">
+			<p:dialog header="Configurando Certificado" widgetVar="dialogoConfig"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="config" style="text-align:center;">
+					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank"
+						columnClasses="ui-grid-col-4,ui-grid-col-5" layout="grid"
+						style="border:0px none; background-color:transparent;">
+
+						<p:outputLabel value="Cargo 1:" for="carg1" />
+						<p:inputText id="carg1" value="#{eventoMB.certificado.cargo1}"
+							required="true" />
+
+						<p:outputLabel value="Assinatura 1: " for="ass1" />
+						<p:inputText id="ass1" value="#{eventoMB.certificado.assinatura1}"
+							required="true" />
+
+						<p:outputLabel value="Cargo 2:" for="carg2" />
+						<p:inputText id="carg2" value="#{eventoMB.certificado.cargo2}" />
+
+						<p:outputLabel value="Assinatura 2: " for="ass2" />
+						<p:inputText id="ass2" value="#{eventoMB.certificado.assinatura2}" />
+
+						<p:outputLabel value="Cabeçalho:" for="cab" />
+						<p:inputText id="cab" value="#{eventoMB.certificado.cabecalho}"
+							required="true" />
+
+						<p:outputLabel value="Texto: " for="text" />
+						<p:inputText id="text" value="#{eventoMB.certificado.texto}"
+							required="true" />
+
+						<p:commandButton value="Salvar"
+							oncomplete="PF('dialogoEdicao').hide()"
+							actionListener="#{comarcaMB.alterar}" process="@form"
+							update=":form:lista" />
+						<p:commandButton value="Cancelar"
+							oncomplete="PF('dialogoEdicao').hide()" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

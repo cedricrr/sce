@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+	</f:facet>
+	<title>Sistema Gerenciamento de Eventos</title>
+	<h:outputScript name="js/layout.js" library="sentinel-layout" />
+	<ui:insert name="head" />
+</h:head>
+
+<h:body>
+	<ui:include src="topbar.xhtml" />
+
+	<ui:include src="leftmenu.xhtml" />
+
+	<div id="layout-portlets-cover" class="fontRegular">
+		<ui:insert name="content">
+               Template
+            </ui:insert>
+
+	</div>
+
+	<p:ajaxStatus
+		style="width:32px; height:32px; position:fixed; right:12px; bottom:10px">
+		<f:facet name="start">
+			<p:graphicImage name="images/preloader.gif" library="sentinel-layout" />
+		</f:facet>
+
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+	<h:outputStylesheet name="css/font-icon-layout.css"
+		library="sentinel-layout" />
+	<h:outputStylesheet name="css/sentinel-layout.css"
+		library="sentinel-layout" />
+	<h:outputStylesheet name="css/core-layout.css"
+		library="sentinel-layout" />
+</h:body>
+</html>

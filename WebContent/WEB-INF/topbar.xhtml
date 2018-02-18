@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div id="layout-header" class="Unselectable fontRegular">
+		<a href="dashboard.xhtml" id="layout-logo"> <h:graphicImage
+				name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout" />
+			<span class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span
+				class="hardblue">GERENCIADOR</span><span class="softblue"> EVENTOS</span></span>
+		</a>
+		<ul id="sm-topmenu" class="layout-header-widgets white Fs14">
+			<li class="Fleft BordRadHalf TexAlCenter"><i
+				class="icon-user-male"></i>
+				<ul
+					class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+					<li class="Animated05"><a class="white Unselectable"><i
+							class="icon-user-male Fs26 OvHidden"></i><span class="Fs18">
+								#{topBarMB.usuario}<br />
+						</span> </a></li>
+					<li class="Animated05"><a href="#" class="white Unselectable"><i
+							class="icon-sun"></i>Configurações</a></li>
+					<li class="Animated05"><a href="#" class="white Unselectable"><i
+							class="icon-lifebuoy"></i>Ajuda</a></li>
+					<li class="Animated05"><a onclick="deslogar()"
+						class="white Unselectable"><i class="icon-off"></i>Sair do
+							Sistema</a></li>
+				</ul></li>
+		</ul>
+		<!-- NEVER REMOVE FOLLOWING 'UL' TAG ! BECAUSE THIS CONTAINS RESPONSIVE MODE HEADER MENU OPEN-CLOSE BUTTON -->
+		<ul id="sm-mobiletopmenu" class="layout-header-widgets white Fs14">
+			<li
+				class="Fleft BordRadHalf TexAlCenter Animated05 DisplayOnResponsive"><i
+				class="icon-th-1"></i></li>
+		</ul>
+		<!-- ****** -->
+	</div>
+
+	<h:form>
+		<p:remoteCommand name="deslogar"  action="#{loginMB.deslogar}" />
+	</h:form>
+</ui:composition>
