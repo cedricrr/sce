@@ -23,6 +23,7 @@ public class ArquivoMB implements Serializable {
 	private ArquivoDAO dao = new ArquivoDAO();
 	private Integer idEvento;
 	private List<Evento> eventos;
+	private String nomeArquivo;
 
 	public List<Arquivo> getArquivos() {
 		if (arquivos == null) {
@@ -59,6 +60,14 @@ public class ArquivoMB implements Serializable {
 		this.eventos = eventos;
 	}
 
+	public String getNomeArquivo() {
+		return nomeArquivo;
+	}
+
+	public void setNomeArquivo(String nomeArquivo) {
+		this.nomeArquivo = nomeArquivo;
+	}
+
 	public String gravar() {
 		arquivo.setEvento(new EventoDAO().buscaPorId(idEvento));
 		dao.adicionar(arquivo);
@@ -76,8 +85,10 @@ public class ArquivoMB implements Serializable {
 		dao.atualizar(arquivo);
 		arquivo = new Arquivo();
 	}
-	
+
 	public void fileUpload(FileUploadEvent event) {
-		System.out.println("Upload do arquivo " +event.getFile().getFileName()+ "realizado com sucesso!");
+		nomeArquivo = event.getFile().getFileName();
+		System.out.println("Upload do arquivo " + nomeArquivo + " realizado com sucesso!");
+		arquivo.setArquivo(event.getFile().getContents());
 	}
 }

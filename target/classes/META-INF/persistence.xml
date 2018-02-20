@@ -13,6 +13,7 @@
 		<class>br.com.sistemaEventos.model.PessoaEvento</class>
 		<class>br.com.sistemaEventos.model.Uf</class>
 		<class>br.com.sistemaEventos.model.Usuario</class>
+		<class>br.com.sistemaEventos.model.Arquivo</class>
 		<properties>
 <!-- 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/> -->
 <!-- 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/sce?autoReconnect=true"/> -->

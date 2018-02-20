@@ -68,7 +68,7 @@
 									<p:selectOneMenu value="#{eventoMB.idCidade}" id="cidade">
 										<f:selectItem itemLabel="Selecione..." itemValue="" />
 										<f:selectItems value="#{eventoMB.cidades}" var="cidade"
-											itemLabel="#{cidade.descricao}" itemValue="#{cidade.id}" />
+											itemLabel="#{cidade.nome}" itemValue="#{cidade.id}" />
 									</p:selectOneMenu>
 
 									<p:outputLabel value="Número de vagas:" for="vagas" />
@@ -137,9 +137,9 @@
 										<div class="EmptyBox5"></div>
 									</div>
 									<div class="Container20">
-										<p:commandButton icon="fa icon-bitbucket Fs14 white"
-											action="#{eventoMB.deletar(obj)}" process="lista"
-											update="@form">
+										<p:commandButton icon="fa icon-document Fs14 white"
+											 process="lista"
+											update="@form" title="configurar certificado">
 											<p:confirm header="Confirmação"
 												message="Deseja realmente apagar este item?"
 												icon="ui-icon-alert" />

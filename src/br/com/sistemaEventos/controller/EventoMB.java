@@ -24,6 +24,7 @@ public class EventoMB implements Serializable {
 	private List<Cidade> cidades;
 	private boolean verificaChoque;
 	private Certificado certificado;
+	private CidadeDAO cidadeDAO = new CidadeDAO();
 
 	public List<Evento> getEventos() {
 		if (eventos == null) {
@@ -53,6 +54,9 @@ public class EventoMB implements Serializable {
 	}
 
 	public List<Cidade> getCidades() {
+		if(cidades == null) {
+			cidades = cidadeDAO.listaTodos();		
+		}
 		return cidades;
 	}
 

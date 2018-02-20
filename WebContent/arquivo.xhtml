@@ -43,22 +43,23 @@
 										value="#{arquivoMB.arquivo.titulo}" />
 
 									<p:outputLabel value="Publicação" for="publicacao" />
-									<p:calendar id="publicacao" placeholder="Até a data"
+									<p:calendar id="publicacao" placeholder="Data de publicação"
 										value="#{arquivoMB.arquivo.publicacao}" navigator="true"
 										locale="pt_BR" pattern="dd/MM/yyyy" mask="true">
 									</p:calendar>
-									
+
 									<p:outputLabel value="Ativo: " for="ativo" />
 									<p:inputSwitch offLabel="Desativado" onLabel="Ativado"
 										id="ativo" required="true" value="#{arquivoMB.arquivo.ativo}" />
-									
+
 									<p:outputLabel value="Arquivo" for="arquivo" />
-									<p:fileUpload required="true" id="arquivo"
-										fileUploadListener="#{arquivoMB.fileUpload}"
-										mode="advanced" dragDropSupport="true" 
-										sizeLimit="100000" allowTypes="/(\.|\/)(doc|docx|ods|txt)$/" />
-
-
+									<p:fileUpload required="true" id="arquivo" auto="true" update="nomeArq"
+										fileUploadListener="#{arquivoMB.fileUpload}" mode="advanced"
+										dragDropSupport="true" sizeLimit="100000"
+										allowTypes="/(\.|\/)(doc|docx|ods|txt)$/" />
+									
+									<p:outputLabel value="Arquivo:" />
+									<p:outputLabel value="#{arquivoMB.nomeArquivo}" id="nomeArq"/>
 								</p:panelGrid>
 
 								<p:panelGrid columns="3" styleClass="ui-panelgrid-blank"
@@ -80,21 +81,22 @@
 			<div class="ContainerIndent ui-fluid">
 				<div class="Container">
 					<div class="Container100 Responsive100">
-						<p:dataTable var="obj" value="#{areaMB.areas}" id="lista"
+						<p:dataTable var="obj" value="#{arquivoMB.arquivos}" id="lista"
 							emptyMessage="Nenhum resultado encontrado!">
 							<f:facet name="header">
-								Áreas				        	
+								Arquivos				        	
 							</f:facet>
-							<p:column headerText="ID">
-								<p:outputLabel value="#{obj.id}" />
+							<p:column headerText="Evento">
+								<p:outputLabel value="#{obj.evento}" />
 							</p:column>
-							<p:column headerText="Descrição" sortable="true"
-								sortBy="#{obj.descricao}">
-								<p:outputLabel value="#{obj.descricao}" />
+							<p:column headerText="Titulo" sortable="true"
+								sortBy="#{obj.titulo}">
+								<p:outputLabel value="#{obj.titulo}" />
 							</p:column>
-							<p:column headerText="Cidade" sortable="true"
-								sortBy="#{obj.cidade}">
-								<p:outputLabel value="#{obj.cidade}" />
+							<p:column headerText="Publicação">
+								<p:outputLabel value="#{obj.publicacao}">
+									<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
+								</p:outputLabel>
 							</p:column>
 
 							<p:column width="10%" headerText="Opções">
@@ -104,7 +106,7 @@
 											oncomplete="PF('dialogoEdicao').show()" update=":edita:info"
 											process="lista">
 											<f:setPropertyActionListener value="#{obj}"
-												target="#{areaMB.area}" />
+												target="#{arquivoMB.arquivo}" />
 										</p:commandButton>
 									</div>
 									<div class="Container20">
@@ -112,7 +114,7 @@
 									</div>
 									<div class="Container40">
 										<p:commandButton icon="fa icon-bitbucket Fs14 white"
-											action="#{areaMB.deletar(obj)}" process="lista"
+											action="#{arquivoMB.deletar(obj)}" process="lista"
 											update="@form">
 											<p:confirm header="Confirmação"
 												message="Deseja realmente apagar este item?"
@@ -147,23 +149,23 @@
 						style="border:0px none; background-color:transparent;">
 
 						<p:outputLabel value="Id:" />
-						<p:inputText value="#{areaMB.area.id}" disabled="true" />
+						<p:inputText value="#{arquivoMB.arquivo.id}" disabled="true" />
 
-						<p:outputLabel value="Descrição: " for="descricao" />
-						<p:inputText id="descricao" required="true"
-							value="#{areaMB.area.descricao}" />
-
-						<p:outputLabel value="Cidade: " for="cidade" />
-						<p:selectOneMenu value="#{areaMB.idCidade}" rendered="true"
-							id="cidade">
+						<p:outputLabel value="Evento: " for="evento" />
+						<p:selectOneMenu value="#{arquivoMB.arquivo.evento}"
+							rendered="true" id="evento">
 							<f:selectItem itemLabel="Selecione..." itemValue="" />
-							<f:selectItems value="#{areaMB.cidades}" var="cidade"
-								itemLabel="#{cidade.descricao}" itemValue="#{cidade.id}" />
+							<f:selectItems value="#{arquivoMB.eventos}" var="evento"
+								itemLabel="#{evento.descricao}" itemValue="#{evento.id}" />
 						</p:selectOneMenu>
+
+						<p:outputLabel value="Titulo: " for="titulo" />
+						<p:inputText id="titulo" required="true"
+							value="#{arquivoMB.arquivo.titulo}" />
 
 						<p:commandButton value="Salvar"
 							oncomplete="PF('dialogoEdicao').hide()"
-							actionListener="#{areaMB.alterar}" process="@form"
+							actionListener="#{arquivoMB.alterar}" process="@form"
 							update=":form:lista" />
 						<p:commandButton value="Cancelar"
 							oncomplete="PF('dialogoEdicao').hide()" />

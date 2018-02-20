@@ -57,7 +57,7 @@
 						<p:dataTable var="obj" value="#{perfilMB.perfis}" id="lista"
 							emptyMessage="Nenhum resultado encontrado!">
 							<f:facet name="header">
-								Áreas				        	
+								Perfil				        	
 							</f:facet>
 							<p:column headerText="ID">
 								<p:outputLabel value="#{obj.id}" />
@@ -65,10 +65,6 @@
 							<p:column headerText="Descrição" sortable="true"
 								sortBy="#{obj.descricao}">
 								<p:outputLabel value="#{obj.descricao}" />
-							</p:column>
-							<p:column headerText="Sigla" sortable="true"
-								sortBy="#{obj.sigla}">
-								<p:outputLabel value="#{obj.silga}" />
 							</p:column>
 
 							<p:column width="10%" headerText="Opções">
