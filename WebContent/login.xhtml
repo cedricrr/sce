@@ -6,8 +6,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-
-
 <h:head>
 	<title>Sistema Gerenciador de Eventos | SCE</title>
 	<meta name="viewport"
@@ -28,44 +26,124 @@
 
 		<div class="Container100">
 			<h:form>
-				<p:dataScroller value="#{loginMB.eventos}" var="obj" chunkSize="10"
-					mode="inline" scrollHeight="500">
-					<f:facet name="header">
-			            Eventos Disponíveis
-			        </f:facet>
+				<div class="Container33">
+					<p:dataScroller value="#{loginMB.evNovos}" var="obj" chunkSize="10"
+						mode="inline" scrollHeight="600">
+						<f:facet name="header">
+							<p:outputLabel value="Eventos Novos" styleClass="white" />
+						</f:facet>
 
-					<h:panelGrid columns="2" style="width:100%">
-						<!--             <p:graphicImage name="resouces/docs/#{car.brand}-big.gif" />  -->
+						<h:panelGrid columns="2" style="width:100%">
+							<!--             <p:graphicImage name="resouces/docs/#{car.brand}-big.gif" />  -->
 
-						<p:outputPanel>
-							<h:panelGrid columns="2" cellpadding="5">
-								<p:outputLabel value="Id:" />
-								<p:outputLabel value="#{obj.id}" style="font-weight: bold" />
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:outputLabel value="Nome:" />
+									<p:outputLabel value="#{obj.descricao}"
+										style="font-weight: bold" />
 
-								<p:outputLabel value="Descrição:" />
-								<p:outputLabel value="#{obj.descricao}"
-									style="font-weight: bold" />
+									<p:outputLabel value="Numero de vagas:" />
+									<p:outputLabel value="#{obj.numeroVaga}"
+										style="font-weight: bold" />
 
-								<p:outputLabel value="Início da inscrição" />
-								<p:outputLabel value="#{obj.inicioInscricao}"
-									style="font-weight: bold">
-									<f:convertDateTime pattern="dd/MM/yyyy" />
-								</p:outputLabel>
+									<p:outputLabel value="Início da inscrição" />
+									<p:outputLabel value="#{obj.inicioInscricao}"
+										style="font-weight: bold">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</p:outputLabel>
 
-								<p:outputLabel value="Término da inscrição" />
-								<p:outputLabel value="#{obj.terminoInscricao}">
-									<f:convertDateTime pattern="dd/MM/yyyy" />
-								</p:outputLabel>
+									<p:outputLabel value="Término da inscrição" />
+									<p:outputLabel value="#{obj.terminoInscricao}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</p:outputLabel>
 
-							</h:panelGrid>
-						</p:outputPanel>
-					</h:panelGrid>
-				</p:dataScroller>
+								</h:panelGrid>
+							</p:outputPanel>
+
+						</h:panelGrid>
+					</p:dataScroller>
+				</div>
+				<div class="Container33">
+					<p:dataScroller value="#{loginMB.evInscAber}" var="obj"
+						chunkSize="10" mode="inline" scrollHeight="600">
+						<f:facet name="header">
+							<p:outputLabel value="Eventos com Inscrições Abertas"
+								styleClass="white" />
+						</f:facet>
+
+						<h:panelGrid columns="2" style="width:100%">
+
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:outputLabel value="Descrição:" />
+									<p:outputLabel value="#{obj.descricao}"
+										style="font-weight: bold" />
+
+									<p:outputLabel value="Numero de vagas:" />
+									<p:outputLabel value="#{obj.numeroVaga}"
+										style="font-weight: bold" />
+
+									<p:outputLabel value="Início da inscrição" />
+									<p:outputLabel value="#{obj.inicioInscricao}"
+										style="font-weight: bold">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</p:outputLabel>
+
+									<p:outputLabel value="Término da inscrição" />
+									<p:outputLabel value="#{obj.terminoInscricao}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</p:outputLabel>
+
+								</h:panelGrid>
+							</p:outputPanel>
+							<p:commandButton value="Inscrever" />
+						</h:panelGrid>
+					</p:dataScroller>
+				</div>
+				<div class="Container33">
+					<p:dataScroller value="#{loginMB.evInscEnce}" var="obj"
+						chunkSize="10" mode="inline" scrollHeight="600">
+						<f:facet name="header">
+							<p:outputLabel value="Eventos com Inscrições Encerradas"
+								styleClass="white" />
+						</f:facet>
+
+						<h:panelGrid columns="2" style="width:100%">
+							<!--             <p:graphicImage name="resouces/docs/#{car.brand}-big.gif" />  -->
+
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:outputLabel value="Descrição:" />
+									<p:outputLabel value="#{obj.descricao}"
+										style="font-weight: bold" />
+
+									<p:outputLabel value="Numero de vagas:" />
+									<p:outputLabel value="#{obj.numeroVaga}"
+										style="font-weight: bold" />
+
+									<p:outputLabel value="Início da inscrição" />
+									<p:outputLabel value="#{obj.inicioInscricao}"
+										style="font-weight: bold">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</p:outputLabel>
+
+									<p:outputLabel value="Término da inscrição" />
+									<p:outputLabel value="#{obj.terminoInscricao}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</p:outputLabel>
+
+								</h:panelGrid>
+							</p:outputPanel>
+						</h:panelGrid>
+					</p:dataScroller>
+				</div>
+
 			</h:form>
 		</div>
 
 	</div>
-	<!-- LOGIN BOX COVER END -->
+
+
 </h:body>
 
 </html>

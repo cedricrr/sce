@@ -68,7 +68,7 @@
 									style="border:0px none; background-color:transparent;">
 									<div class="EmptyBox20"></div>
 									<p:commandButton value="Gravar"
-										actionListener="#{areaMB.gravar}" process="in, bt"
+										actionListener="#{arquivoMB.gravar}" process="in, bt"
 										update=":form" />
 									<div class="EmptyBox20"></div>
 								</p:panelGrid>
@@ -87,7 +87,7 @@
 								Arquivos				        	
 							</f:facet>
 							<p:column headerText="Evento">
-								<p:outputLabel value="#{obj.evento}" />
+								<p:outputLabel value="#{obj.evento.descricao}" />
 							</p:column>
 							<p:column headerText="Titulo" sortable="true"
 								sortBy="#{obj.titulo}">
@@ -95,7 +95,7 @@
 							</p:column>
 							<p:column headerText="Publicação">
 								<p:outputLabel value="#{obj.publicacao}">
-									<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
+									<f:convertDateTime pattern="dd/MM/yyyy " />
 								</p:outputLabel>
 							</p:column>
 
